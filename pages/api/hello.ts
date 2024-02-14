@@ -1,13 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import hana from '@sap/hana-client';
 
-type Data = {
-  name: string;
-};
+const hanaConnection = hana.createConnection();
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse<{connection: string}>,
 ) {
-  res.status(200).json({ name: "John Doe" });
+
+  res.status(200).json({ connection: hanaConnection.state() });
 }
